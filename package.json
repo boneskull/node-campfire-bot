@@ -1,0 +1,11 @@
+{
+  "name": "node-campfire-bot",
+  "version": "0.0.1",
+  "dependencies": {
+    "q": "~0.9.6",
+    "request": "~2.27.0",
+    "event-stream": "~3.0.16",
+    "fogbugz": "~0.1.7",
+    "redis": "~0.8.4"
+  }
+}

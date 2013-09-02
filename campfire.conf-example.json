@@ -1,0 +1,9 @@
+{
+  "site": "yoursite",
+  "useSSL": true,
+  "rooms": ["room a", "room b"],
+  "nickname": "bot",
+  "apiKey": "asdfsfdasfdsafssadfdsfasfasdfadsfasdf",
+  "fullname": "Campfire Bot",
+  "plugins": ["karma", "fogbugz"]
+}

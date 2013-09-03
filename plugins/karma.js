@@ -23,7 +23,7 @@ module.exports = [
   },
   {
     on: 'text',
-    handler: function (data) {
+    handle: function (data) {
       var match, thing;
       if (match = data.body.match(new RegExp("^(.+?)--$"))) {
         thing = match[1];

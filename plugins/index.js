@@ -2,26 +2,49 @@ var conf = require('../campfire.conf.json'),
 
   plugins = [];
 
+var registerPlugins = function registerPlugins() {
+  var i = conf.plugins.length;
+  while (i--) {
+    plugins.push(require('./' + conf.plugins[i]));
+    console.log('added plugin ' + conf.plugins[i]);
+  }
+};
+
 module.exports = {
   handle: function (data) {
-    if (!plugins.length) {
-      i = conf.plugins.length;
-      while (i--) {
-        plugins.push(require('./' + conf.plugins[i]));
-        console.log('added plugin ' + conf.plugins[i]);
-      }
+    var i = plugins.length, plugin, j, handler;
+
+    if (!i) {
+      registerPlugins();
+      i = plugins.length;
     }
 
-    var i = plugins.length, plugin, j, handler;
     while (i--) {
       plugin = plugins[i];
       j = plugin.length;
       while (j--) {
         handler = plugin[j];
-        if (handler.on == data.type) {
+        if (data && handler.on == data.type) {
           handler.handle(data);
         }
       }
     }
+  },
+  init: function (rooms) {
+    var i = plugins.length, plugin, j, handler;
+    if (!i) {
+      registerPlugins();
+      i = plugins.length;
+    }
+    while (i--) {
+      plugin = plugins[i];
+      j = plugin.length;
+      while (j--) {
+        handler = plugin[j];
+        if (handler.run) {
+          handler.run(rooms);
+        }
+      }
+    }
   }
-}
+};

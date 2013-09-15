@@ -23,13 +23,9 @@ var queue = {}, t,
 module.exports = [
   {
     run: function (rooms) {
-      function onMeta(meta) {
+      function onMeta() {
         var i = rooms.length;
         while (i--) {
-          speak({
-            type: 'TextMessage',
-            body: format('Connected to feed [%s]', meta['rss:title']['#'])
-          }, rooms[i].id);
           queue[rooms[i].id] = [];
           t = setInterval(report, conf.reportInterval)
         }

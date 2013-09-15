@@ -11,7 +11,7 @@ module.exports = [
           var match;
           //todo handle this elsewhere
           if (data.user_id !== 1367582) {
-            if (match = data.body.match(new RegExp("\\b(\\d{4,5})\\b"))) {
+            if (match = data.body.match(new RegExp("^(\\d{4,5})$"))) {
               var bugId = match[1];
               fogbugz.getBug(bugId)
                 .then(function (bug) {

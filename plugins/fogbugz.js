@@ -16,18 +16,17 @@ module.exports = [
               fogbugz.getBug(bugId)
                 .then(function (bug) {
                   var msg = {
-                    type: 'PasteMessage',
-                    body: format('#%s: %s\n%s\nStatus: *%s* / ',
-                      bug.id, bug.title, bug.url, bug.status)
+                    type: 'TextMessage',
+                    body: format('#%s: %s [%s] *%s* ',
+                      bug.id, bug.title, bug.url, bug.status.toUpperCase())
                   };
                   if (bug.assignedTo !== 'CLOSED') {
                     msg.body +=
-                    format('Assigned to: %s <%s> / ', bug.assignedTo,
-                      bug.assignedToEmail);
+                    format(' Assigned to: [%s]', bug.assignedTo);
                   }
-                  msg.body += format('Fix for [%s]', bug.fixFor);
+                  msg.body += format(' Fix for [%s]', bug.fixFor);
                   if (bug.tags) {
-                    msg.body += format('\nTags: %s', bug.tags);
+                    msg.body += format(' Tags: %s', bug.tags);
                   }
                   speak(msg, data.room_id);
                 }, function () {
